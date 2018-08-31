@@ -1,6 +1,7 @@
 package com.frontanilla.neondesktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -10,6 +11,7 @@ public class Grid {
     private int rows, columns;
     private CellButton[][] cells;
     private Texture texture, square, circle;
+    private Color color;
 
     public Grid(NeonGame game, int rows, int columns) {
         this.game = game;
@@ -19,6 +21,7 @@ public class Grid {
         generateGrid();
         square = new Texture("square.png");
         circle = new Texture("circle.png");
+        color = Color.WHITE;
     }
 
     public CellButton[][] getCells() {
@@ -42,12 +45,10 @@ public class Grid {
                     @Override
                     public void onTouch() {
                         if (game.getTurn()) {
-                            cells[finalR][finalC].setContent(square);
-                            cells[finalR][finalC].setColor(game.getColor1());
+                            cells[finalR][finalC].setContent(new Figure(square, game.getTeam1()));
                             game.setTurn(!game.getTurn());
                         } else {
-                            cells[finalR][finalC].setContent(circle);
-                            cells[finalR][finalC].setColor(game.getColor2());
+                            cells[finalR][finalC].setContent(new Figure(circle, game.getTeam2()));
                             game.setTurn(!game.getTurn());
                         }
                     }
@@ -59,8 +60,13 @@ public class Grid {
     public void render(SpriteBatch batch) {
         for (Button[] buttonRow : cells) {
             for (Button b : buttonRow) {
+                b.setColor(color);
                 b.render(batch);
             }
         }
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

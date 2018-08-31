@@ -2,7 +2,6 @@ package com.frontanilla.neondesktop;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +15,7 @@ public class NeonGame extends Game {
     private float time;
     private Grid grid;
     private boolean turn;
-    private Color c1, c2;
+    private Team t1, t2;
 
     @Override
     public void create() {
@@ -25,9 +24,10 @@ public class NeonGame extends Game {
         random = new Random();
         time = 0;
         grid = new Grid(this, Constants.GRID_ROWS, Constants.GRID_COLUMNS);
-        generateColors();
-
-        Gdx.input.setInputProcessor(new Input(this));
+        generateTeams();
+        // VANIA SOBRE UN JUEGO EL LUNES
+        // YO EXPONGO LIBRO - THE ULTIMATE GUIDE TO VIDEOGAME WRITING DESIGN 02
+        Gdx.input.setInputProcessor(new NeonInput(this));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class NeonGame extends Game {
 
         time += Gdx.graphics.getDeltaTime();
         if (time >= Constants.TIME_INTERVAL) {
-            generateColors();
+            changeGridColor();
             time = 0;
         }
 
@@ -65,27 +65,26 @@ public class NeonGame extends Game {
         this.turn = turn;
     }
 
-    private void generateColors() {
-        c1 = new Color(random.nextFloat(),
-                random.nextFloat(),
-                random.nextFloat(),
-                1);
-        c2 = new Color(random.nextFloat(),
-                random.nextFloat(),
-                random.nextFloat(),
-                1);
-        Color gridColor = new Color(random.nextFloat(),
-                random.nextFloat(),
-                random.nextFloat(),
-                1);
-        // TODO USE THIS METHOD
+    public void changeColors() {
+        t1.setColor(Utils.randomColor());
+        t2.setColor(Utils.randomColor());
     }
 
-    public Color getColor1() {
-        return c1;
+    private void changeGridColor() {
+        grid.setColor(Utils.randomColor());
     }
 
-    public Color getColor2() {
-        return c2;
+    private void generateTeams() {
+        t1 = new Team(Utils.randomColor());
+        t2 = new Team(Utils.randomColor());
+        grid.setColor(Utils.randomColor());
+    }
+
+    public Team getTeam1() {
+        return t1;
+    }
+
+    public Team getTeam2() {
+        return t2;
     }
 }
