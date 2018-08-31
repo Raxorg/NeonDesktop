@@ -10,7 +10,7 @@ public class Grid {
     private NeonGame game;
     private int rows, columns;
     private CellButton[][] cells;
-    private Texture texture, square, circle;
+    private Texture texture, square, circle, triangle;
     private Color color;
 
     public Grid(NeonGame game, int rows, int columns) {
@@ -21,6 +21,7 @@ public class Grid {
         generateGrid();
         square = new Texture("square.png");
         circle = new Texture("circle.png");
+        triangle = new Texture("triangle.png");
         color = Color.WHITE;
     }
 
@@ -44,12 +45,19 @@ public class Grid {
                 ) {
                     @Override
                     public void onTouch() {
-                        if (game.getTurn()) {
-                            cells[finalR][finalC].setContent(new Figure(square, game.getTeam1()));
-                            game.setTurn(!game.getTurn());
-                        } else {
-                            cells[finalR][finalC].setContent(new Figure(circle, game.getTeam2()));
-                            game.setTurn(!game.getTurn());
+                        switch (game.getTurn()) {
+                            case 0:
+                                cells[finalR][finalC].setContent(new Figure(square, game.getTeam(game.getTurn())));
+                                game.passTurn();
+                                break;
+                            case 1:
+                                cells[finalR][finalC].setContent(new Figure(square, game.getTeam(game.getTurn())));
+                                game.passTurn();
+                                break;
+                            case 2:
+                                cells[finalR][finalC].setContent(new Figure(square, game.getTeam(game.getTurn())));
+                                game.passTurn();
+                                break;
                         }
                     }
                 };

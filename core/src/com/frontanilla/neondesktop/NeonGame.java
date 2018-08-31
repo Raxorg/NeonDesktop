@@ -6,25 +6,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Random;
-
 public class NeonGame extends Game {
     private SpriteBatch batch;
     private Texture pixel;
-    private Random random;
     private float time;
     private Grid grid;
-    private boolean turn;
-    private Team t1, t2;
+    private int turn;
+    private Team[] teams;
+    private Player p1, p2;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         pixel = new Texture("pixel.png");
-        random = new Random();
         time = 0;
         grid = new Grid(this, Constants.GRID_ROWS, Constants.GRID_COLUMNS);
         generateTeams();
+        generatePlayers();
         // VANIA SOBRE UN JUEGO EL LUNES
         // YO EXPONGO LIBRO - THE ULTIMATE GUIDE TO VIDEOGAME WRITING DESIGN 02
         Gdx.input.setInputProcessor(new NeonInput(this));
@@ -43,6 +41,8 @@ public class NeonGame extends Game {
 
         batch.begin();
         grid.render(batch);
+        p1.render(batch);
+        p2.render(batch);
         batch.end();
     }
 
@@ -57,17 +57,21 @@ public class NeonGame extends Game {
         return grid;
     }
 
-    public boolean getTurn() {
+    public int getTurn() {
         return turn;
     }
 
-    public void setTurn(boolean turn) {
-        this.turn = turn;
+    public void passTurn() {
+        turn++;
+        if (turn > teams.length - 1) {
+            turn = 0;
+        }
     }
 
     public void changeColors() {
-        t1.setColor(Utils.randomColor());
-        t2.setColor(Utils.randomColor());
+        for (Team team : teams) {
+            team.setColor(Utils.randomColor());
+        }
     }
 
     private void changeGridColor() {
@@ -75,16 +79,18 @@ public class NeonGame extends Game {
     }
 
     private void generateTeams() {
-        t1 = new Team(Utils.randomColor());
-        t2 = new Team(Utils.randomColor());
+        teams = new Team[2];
+        teams[0] = new Team(0, Utils.randomColor());
+        teams[1] = new Team(1, Utils.randomColor());
         grid.setColor(Utils.randomColor());
     }
 
-    public Team getTeam1() {
-        return t1;
+    private void generatePlayers() {
+        p1 = new Player(teams[0]);
+        p2 = new Player(teams[1]);
     }
 
-    public Team getTeam2() {
-        return t2;
+    public Team getTeam(int teamID) {
+        return teams[teamID];
     }
 }
