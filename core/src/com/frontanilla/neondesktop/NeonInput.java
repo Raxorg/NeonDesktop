@@ -21,11 +21,17 @@ public class NeonInput extends InputAdapter {
             case Input.Keys.S:
                 game.getP1().move(false);
                 break;
+            case Input.Keys.D:
+                game.getP1().shoot();
+                break;
             case Input.Keys.UP:
                 game.getP2().move(true);
                 break;
             case Input.Keys.DOWN:
                 game.getP2().move(false);
+                break;
+            case Input.Keys.LEFT:
+                game.getP2().shoot();
                 break;
             default:
                 break;
