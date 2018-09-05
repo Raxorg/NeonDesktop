@@ -16,9 +16,14 @@ public class Constants {
     public static final float FIGURE_OFFSET = FIGURE_SIZE / 2;
     // Times
     public static final float TIME_INTERVAL = 3f;
+    public static final int MAX_FAKE_TIME = 10;
     // Players
-    public static final float PLAYER1_SIZE = TILE_SIZE / 2;
+    public static final float PLAYER_SIZE = TILE_SIZE / 2;
     public static final float PLAYER1_X = OFFSET_X - TILE_SIZE / 2;
     public static final float PLAYER2_X = OFFSET_X + GRID_COLUMNS * TILE_SIZE;
-    public static final float INITIAL_PLAYER_Y = OFFSET_Y + (GRID_ROWS - 1) * TILE_SIZE;
+    public static final float INITIAL_PLAYER_Y = OFFSET_Y + PLAYER_SIZE / 2;
+    public static final int INITIAL_PLAYER_ROW = GRID_ROWS - 1;
+    // Rows
+    public static final int TOP_ROW = GRID_ROWS - 1;
+    public static final int BOTTOM_ROW = 0;
 }

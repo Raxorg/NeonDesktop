@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class NeonGame extends Game {
@@ -14,6 +15,7 @@ public class NeonGame extends Game {
     private int turn;
     private Team[] teams;
     private Player p1, p2;
+    private BitmapFont font;
 
     @Override
     public void create() {
@@ -23,9 +25,8 @@ public class NeonGame extends Game {
         grid = new Grid(this, Constants.GRID_ROWS, Constants.GRID_COLUMNS);
         generateTeams();
         generatePlayers();
-        // VANIA SOBRE UN JUEGO EL LUNES
-        // YO EXPONGO LIBRO - THE ULTIMATE GUIDE TO VIDEOGAME WRITING DESIGN 02
         Gdx.input.setInputProcessor(new NeonInput(this));
+        font = new BitmapFont();
     }
 
     @Override
@@ -43,6 +44,7 @@ public class NeonGame extends Game {
         grid.render(batch);
         p1.render(batch);
         p2.render(batch);
+        drawText();
         batch.end();
     }
 
@@ -59,6 +61,16 @@ public class NeonGame extends Game {
 
     public int getTurn() {
         return turn;
+    }
+
+    private void drawText() {
+        float currentTime = Constants.TIME_INTERVAL - time;
+        int fakeTime = (int) (currentTime * (Constants.MAX_FAKE_TIME / Constants.TIME_INTERVAL)) + 1;
+        String text = fakeTime + "";
+        font.draw(batch,
+                text,
+                Gdx.graphics.getWidth() / 2 - Utils.getTextSize(text, font).x / 2,
+                Gdx.graphics.getHeight() / 2);
     }
 
     public void passTurn() {
@@ -92,5 +104,13 @@ public class NeonGame extends Game {
 
     public Team getTeam(int teamID) {
         return teams[teamID];
+    }
+
+    public Player getP1() {
+        return p1;
+    }
+
+    public Player getP2() {
+        return p2;
     }
 }

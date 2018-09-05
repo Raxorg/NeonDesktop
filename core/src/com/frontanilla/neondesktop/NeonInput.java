@@ -13,6 +13,27 @@ public class NeonInput extends InputAdapter {
     }
 
     @Override
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.W:
+                game.getP1().move(true);
+                break;
+            case Input.Keys.S:
+                game.getP1().move(false);
+                break;
+            case Input.Keys.UP:
+                game.getP2().move(true);
+                break;
+            case Input.Keys.DOWN:
+                game.getP2().move(false);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         screenY = Gdx.graphics.getHeight() - screenY;
         switch (button) {
