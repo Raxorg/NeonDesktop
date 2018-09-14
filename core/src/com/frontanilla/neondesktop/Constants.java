@@ -1,6 +1,7 @@
 package com.frontanilla.neondesktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Constants {
 
@@ -26,4 +27,8 @@ public class Constants {
     // Rows
     public static final int TOP_ROW = GRID_ROWS - 1;
     public static final int BOTTOM_ROW = 0;
+    // Bullets
+    public static final float BULLET_SPEED = 3;
+    // Textures
+    public static final Texture PIXEL = new Texture("pixel.png");
 }

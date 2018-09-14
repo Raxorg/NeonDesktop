@@ -50,11 +50,7 @@ public class Player {
         }
     }
 
-    public void shoot() {
-        if (team.getTeamID() == 0) {
-            
-        } else {
-
-        }
+    public int getRow() {
+        return row;
     }
 }

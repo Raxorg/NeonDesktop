@@ -41,6 +41,7 @@ public class NeonGame extends Game {
         }
 
         batch.begin();
+        grid.update(Gdx.graphics.getDeltaTime());
         grid.render(batch);
         p1.render(batch);
         p2.render(batch);
@@ -104,6 +105,14 @@ public class NeonGame extends Game {
 
     public Team getTeam(int teamID) {
         return teams[teamID];
+    }
+
+    public void shoot(Player player) {
+        if (player.getTeam().getTeamID() == 0) {
+            grid.getCells()[player.getRow()][0].setContent(new Figure(Constants.PIXEL, player.getTeam()));
+        } else {
+            grid.getCells()[player.getRow()][Constants.GRID_COLUMNS - 1].setContent(new Figure(pixel, player.getTeam()));
+        }
     }
 
     public Player getP1() {

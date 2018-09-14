@@ -25,6 +25,10 @@ public abstract class CellButton extends Button {
         }
     }
 
+    public Figure getFigure() {
+        return figure;
+    }
+
     public void setContent(Figure figure) {
         this.figure = figure;
     }

@@ -12,6 +12,7 @@ public class Grid {
     private CellButton[][] cells;
     private Texture texture, square, circle, triangle;
     private Color color;
+    private float time;
 
     public Grid(NeonGame game, int rows, int columns) {
         this.game = game;
@@ -61,6 +62,20 @@ public class Grid {
                         }
                     }
                 };
+            }
+        }
+    }
+
+    public void update(float delta) {
+        time += delta;
+        if (time >= Constants.BULLET_SPEED) {
+            time -= Constants.BULLET_SPEED;
+            for (CellButton[] buttonRow : cells) {
+                for (CellButton b : buttonRow) {
+                    if (b.getFigure().getTexture() == Constants.PIXEL) {
+
+                    }
+                }
             }
         }
     }
