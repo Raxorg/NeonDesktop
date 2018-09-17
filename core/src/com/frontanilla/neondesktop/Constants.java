@@ -16,7 +16,7 @@ public class Constants {
     public static final float FIGURE_SIZE = TILE_SIZE / 2;
     public static final float FIGURE_OFFSET = FIGURE_SIZE / 2;
     // Times
-    public static final float TIME_INTERVAL = 3f;
+    public static final float TIME_INTERVAL = 0.2f;
     public static final int MAX_FAKE_TIME = 10;
     // Players
     public static final float PLAYER_SIZE = TILE_SIZE / 2;
@@ -28,7 +28,7 @@ public class Constants {
     public static final int TOP_ROW = GRID_ROWS - 1;
     public static final int BOTTOM_ROW = 0;
     // Bullets
-    public static final float BULLET_SPEED = 3;
+    public static final float BULLET_SPEED = 0.2f;
     // Textures
     public static final Texture PIXEL = new Texture("pixel.png");
 }

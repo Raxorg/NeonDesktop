@@ -70,10 +70,46 @@ public class Grid {
         time += delta;
         if (time >= Constants.BULLET_SPEED) {
             time -= Constants.BULLET_SPEED;
-            for (CellButton[] buttonRow : cells) {
-                for (CellButton b : buttonRow) {
-                    if (b.getFigure().getTexture() == Constants.PIXEL) {
-
+            for (int row = 0; row < cells.length; row++) {
+                // Check player 1
+                for (int column = cells[row].length - 1; column >= 0; column--) {
+                    if (cells[row][column].getFigure() != null && cells[row][column].getFigure().getTexture() == Constants.PIXEL) {
+                        if (!cells[row][column].getFigure().hasMoved()) {
+                            if (column != cells[row].length - 1 &&
+                                    cells[row][column].getFigure().getTeam().getTeamID() == 0) {
+                                cells[row][column].getFigure().setMoved(true);
+                                if (cells[row][column + 1].getFigure() != null
+                                        && cells[row][column + 1].getFigure().getTeam().getTeamID() == 1) {
+                                    cells[row][column + 1].setContent(null);
+                                } else if (column != cells[row].length - 2
+                                        && cells[row][column + 2].getFigure() != null
+                                        && cells[row][column + 2].getFigure().getTeam().getTeamID() == 1) {
+                                    cells[row][column + 2].setContent(null);
+                                } else {
+                                    cells[row][column + 1].setContent(cells[row][column].getFigure());
+                                }
+                                cells[row][column].setContent(null);
+                            }
+                        }
+                    }
+                }
+                // Check player 2
+                for (int column = 0; column < cells[row].length; column++) {
+                    if (cells[row][column].getFigure() != null && cells[row][column].getFigure().getTexture() == Constants.PIXEL) {
+                        if (!cells[row][column].getFigure().hasMoved()) {
+                            if (column != 0 && cells[row][column].getFigure().getTeam().getTeamID() == 1) {
+                                cells[row][column].getFigure().setMoved(true);
+                                cells[row][column - 1].setContent(cells[row][column].getFigure());
+                                cells[row][column].setContent(null);
+                            }
+                        }
+                    }
+                }
+            }
+            for (int row = 0; row < cells.length; row++) {
+                for (int column = cells[row].length - 1; column > 0; column--) {
+                    if (cells[row][column].getFigure() != null && cells[row][column].getFigure().getTexture() == Constants.PIXEL) {
+                        cells[row][column].getFigure().setMoved(false);
                     }
                 }
             }
@@ -81,8 +117,8 @@ public class Grid {
     }
 
     public void render(SpriteBatch batch) {
-        for (Button[] buttonRow : cells) {
-            for (Button b : buttonRow) {
+        for (CellButton[] buttonRow : cells) {
+            for (CellButton b : buttonRow) {
                 b.setColor(color);
                 b.render(batch);
             }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class NeonGame extends Game {
     private SpriteBatch batch;
-    private Texture pixel;
     private float time;
     private Grid grid;
     private int turn;
@@ -20,7 +19,6 @@ public class NeonGame extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        pixel = new Texture("pixel.png");
         time = 0;
         grid = new Grid(this, Constants.GRID_ROWS, Constants.GRID_COLUMNS);
         generateTeams();
@@ -53,7 +51,7 @@ public class NeonGame extends Game {
     public void dispose() {
         batch.dispose();
         // grid.dispose();
-        pixel.dispose();
+        Constants.PIXEL.dispose();
     }
 
     public Grid getGrid() {
@@ -111,7 +109,7 @@ public class NeonGame extends Game {
         if (player.getTeam().getTeamID() == 0) {
             grid.getCells()[player.getRow()][0].setContent(new Figure(Constants.PIXEL, player.getTeam()));
         } else {
-            grid.getCells()[player.getRow()][Constants.GRID_COLUMNS - 1].setContent(new Figure(pixel, player.getTeam()));
+            grid.getCells()[player.getRow()][Constants.GRID_COLUMNS - 1].setContent(new Figure(Constants.PIXEL, player.getTeam()));
         }
     }
 
