@@ -5,31 +5,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class CellButton extends Button {
 
-    private Figure figure;
+    private Player player;
+    private Bomb bomb;
 
     public CellButton(Texture texture, float x, float y, float width, float height) {
         super(texture, x, y, width, height);
+        player = null;
+        bomb = null;
     }
 
     @Override
     public void render(SpriteBatch batch) {
         super.render(batch);
-        if (figure != null) {
-            batch.setColor(figure.getTeam().getColor());
-            batch.draw(
-                    figure.getTexture(),
-                    bounds.x + Constants.FIGURE_OFFSET,
-                    bounds.y + Constants.FIGURE_OFFSET,
-                    Constants.FIGURE_SIZE,
-                    Constants.FIGURE_SIZE);
+        if (bomb != null) {
+            bomb.render(batch);
+        }
+        if (player != null) {
+            player.render(batch);
         }
     }
 
-    public Figure getFigure() {
-        return figure;
+    public Bomb getBomb() {
+        return bomb;
     }
 
-    public void setContent(Figure figure) {
-        this.figure = figure;
+    public void setContent(Bomb bomb) {
+        this.bomb = bomb;
     }
 }

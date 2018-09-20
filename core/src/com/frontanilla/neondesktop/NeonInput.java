@@ -14,29 +14,45 @@ public class NeonInput extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        handlePlayer1(keycode);
+        return true;
+    }
+
+    private void handlePlayer1(int keycode) {
         switch (keycode) {
             case Input.Keys.W:
-                game.getP1().move(true);
+                game.movePlayer(game.getP1(), 0, 1);
+                break;
+            case Input.Keys.A:
+                game.movePlayer(game.getP1(), -1, 0);
                 break;
             case Input.Keys.S:
-                game.getP1().move(false);
+                game.movePlayer(game.getP1(), 0, -1);
+                break;
+            case Input.Keys.D:
+                game.movePlayer(game.getP1(), 1, 0);
                 break;
             case Input.Keys.SPACE:
-                game.shoot(game.getP1());
+                game.placeBomb(game.getP1());
                 break;
             case Input.Keys.UP:
-                game.getP2().move(true);
+                game.movePlayer(game.getP2(), 0, 1);
+                break;
+            case Input.Keys.LEFT:
+                game.movePlayer(game.getP2(), -1, 0);
                 break;
             case Input.Keys.DOWN:
-                game.getP2().move(false);
+                game.movePlayer(game.getP2(), 0, -1);
+                break;
+            case Input.Keys.RIGHT:
+                game.movePlayer(game.getP2(), 1, 0);
                 break;
             case Input.Keys.ENTER:
-                game.shoot(game.getP2());
+                game.placeBomb(game.getP2());
                 break;
             default:
                 break;
         }
-        return true;
     }
 
     @Override

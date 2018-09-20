@@ -3,7 +3,6 @@ package com.frontanilla.neondesktop;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -97,20 +96,16 @@ public class NeonGame extends Game {
     }
 
     private void generatePlayers() {
-        p1 = new Player(teams[0]);
-        p2 = new Player(teams[1]);
+        p1 = new Player(teams[0], grid.getCells()[4][0]);
+        p2 = new Player(teams[1], grid.getCells()[4][7]);
     }
 
     public Team getTeam(int teamID) {
         return teams[teamID];
     }
 
-    public void shoot(Player player) {
-        if (player.getTeam().getTeamID() == 0) {
-            grid.getCells()[player.getRow()][0].setContent(new Figure(Constants.PIXEL, player.getTeam()));
-        } else {
-            grid.getCells()[player.getRow()][Constants.GRID_COLUMNS - 1].setContent(new Figure(Constants.PIXEL, player.getTeam()));
-        }
+    public void placeBomb(Player player) {
+        player.placeBomb();
     }
 
     public Player getP1() {
@@ -119,5 +114,9 @@ public class NeonGame extends Game {
 
     public Player getP2() {
         return p2;
+    }
+
+    public void movePlayer(Player player, int x, int y) {
+
     }
 }
